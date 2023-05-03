@@ -1,4 +1,4 @@
-import "AnimalView.css";
+import "./AnimalView.css";
 
 export const AnimalView = () => {
   return <></>;
