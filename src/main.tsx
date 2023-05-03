@@ -15,16 +15,16 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Home />,
-    errorElement: <NotFound></NotFound>,
+    errorElement: <NotFound />,
   },
   {
     path: "/animals",
-    element: <BunchOfAnimals></BunchOfAnimals>,
+    element: <BunchOfAnimals />,
     // loader: bookLoader,
   },
   {
     path: "/animals/:id",
-    element: <AnimalView></AnimalView>,
+    element: <AnimalView />,
     // loader: bookLoader,
   },
 ]);

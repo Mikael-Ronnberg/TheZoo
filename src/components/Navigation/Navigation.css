@@ -1,0 +1,13 @@
+li{
+    list-style: none;
+}
+
+.nav-container{
+  border: 2px solid black;
+}
+
+.link-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
