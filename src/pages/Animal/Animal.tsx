@@ -13,12 +13,16 @@ export interface IAnimal {
   yearOfBirth: number;
 }
 
-export const Animal = (animalProps: IAnimal) => {
+export interface AnimalProps {
+  Animals: IAnimal[];
+}
+
+export const Animal = ({ name, imageUrl }: IAnimal) => {
   return (
     <>
       <div className="animal-wrapper">
-        <h2>{animalProps.name}</h2>
-        <img src={animalProps.imageUrl} alt={animalProps.name}></img>
+        <h2>{name}</h2>
+        <img src={imageUrl} alt={name}></img>
       </div>
     </>
   );

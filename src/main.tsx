@@ -6,6 +6,7 @@ import { BunchOfAnimals } from "./pages/BunchOfAnimals/BunchOfAnimals";
 import { AnimalView } from "./pages/AnimalView/AnimalView";
 import { Home } from "./pages/Home/Home";
 import { NotFound } from "./pages/NotFound/NotFound";
+import { animalLoader } from "./loaders/animalLoader";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -20,12 +21,12 @@ const router = createBrowserRouter([
   {
     path: "/animals",
     element: <BunchOfAnimals />,
-    // loader: bookLoader,
+    loader: animalLoader,
   },
   {
     path: "/animals/:id",
     element: <AnimalView />,
-    // loader: bookLoader,
+    loader: animalLoader,
   },
 ]);
 
