@@ -1,0 +1,8 @@
+.animal-wrapper{
+    width: 20vw;
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 2px solid black;
+}
