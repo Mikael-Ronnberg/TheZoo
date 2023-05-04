@@ -19,6 +19,7 @@ export async function logJSONData() {
 export interface Loader {
   allTheAnimals: IAnimal[];
   updateLastFed: (animalId: number, lastFed: Date) => void;
+  isAnimalHungry: (hungryAnimal: IAnimal) => string;
 }
 
 const updateLastFed = (animalId: number, didFed: Date) => {
@@ -30,12 +31,36 @@ const updateLastFed = (animalId: number, didFed: Date) => {
     return animal;
   });
 
-  console.log(updatedAnimals);
-  myAnimals = updatedAnimals; // Update the myAnimals array;
+  myAnimals = updatedAnimals;
+};
+
+const isAnimalHungry = (hungryAnimal: IAnimal) => {
+  // hungryAnimals.map((animal) => {
+  const now = new Date();
+  const sinceFed = new Date(hungryAnimal.lastFed);
+  const hoursSinceLastFed = Math.floor(
+    (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
+  );
+
+  if (hoursSinceLastFed >= 3) {
+    const updatedAnimals = myAnimals.map((animal) => {
+      if (animal.id === hungryAnimal.id) {
+        return { ...animal, isFed: false };
+      }
+    });
+  }
+  // });
+
+  console.log(myAnimals);
+  return hoursSinceLastFed.toString();
 };
 
 export const animalLoader = () => {
-  const data: Loader = { allTheAnimals: myAnimals, updateLastFed };
+  const data: Loader = {
+    allTheAnimals: myAnimals,
+    updateLastFed,
+    isAnimalHungry,
+  };
   return data;
 };
 
