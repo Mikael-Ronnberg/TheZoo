@@ -2,8 +2,6 @@ import { Navigation } from "../../components/Navigation/Navigation";
 import { logJSONData } from "../../loaders/animalLoader";
 import "./Home.css";
 
-console.log(logJSONData());
-
 export const Home = () => {
   return (
     <div>
