@@ -12,10 +12,29 @@ export const AnimalView = () => {
     (animal) => animal.id.toString() === params.id
   );
 
-  return (
-    <>
-      <Navigation />
-      {/* <Animal {...current} /> */}
-    </>
-  );
+  if (current === undefined) {
+    return <h2>Välj ett djur!</h2>;
+  } else {
+    return (
+      <>
+        <Navigation />
+        <div className="animalview-container">
+          <div className="soloanimal-wrapper">
+            <h1>{current.name}</h1>
+            <img
+              className="animal-img"
+              src={current.imageUrl}
+              alt={current.name}
+            ></img>
+            <p>{current.shortDescription}</p>
+            <p>{current.latinName}</p>
+            <p>Lite mer information: {current.longDescription}</p>
+            <p>Har ätit: {current.isFed}</p>
+            <p>Föddes: {current.yearOfBirth}</p>
+            <p>Åt senast: {current.lastFed}</p>
+          </div>
+        </div>
+      </>
+    );
+  }
 };

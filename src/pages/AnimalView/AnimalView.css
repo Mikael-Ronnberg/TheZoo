@@ -1,0 +1,22 @@
+.animalview-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5rem;
+}
+
+.animal-img{
+    max-width: 1rem;
+    max-height: 3rem;
+}
+
+
+.soloanimal-wrapper{
+    max-width: 50vw;
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}

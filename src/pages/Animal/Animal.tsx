@@ -22,7 +22,7 @@ export const Animal = ({ name, imageUrl }: IAnimal) => {
     <>
       <div className="animal-wrapper">
         <h2>{name}</h2>
-        <img src={imageUrl} alt={name}></img>
+        <img className="animals-img" src={imageUrl} alt={name}></img>
       </div>
     </>
   );
