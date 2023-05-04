@@ -10,10 +10,9 @@ type Props = {
 };
 
 export const AnimalView = ({ animal }: Props) => {
-  // const [changeAnimals, setChangeAnimals] = useState<IAnimal[]>();
-
   const params = useParams();
-  const { allTheAnimals, updateLastFed } = useLoaderData() as Loader;
+  const { allTheAnimals, updateLastFed, isAnimalHungry } =
+    useLoaderData() as Loader;
 
   const current = allTheAnimals.find(
     (animal) => animal.id.toString() === params.id
@@ -23,15 +22,19 @@ export const AnimalView = ({ animal }: Props) => {
     if (current !== undefined) {
       const now = new Date();
       updateLastFed(current.id, now);
+      window.location.reload();
     }
   };
 
   if (current === undefined) {
-    <Navigation />;
-    return <h2>Välj ett djur!</h2>;
+    return (
+      <>
+        <Navigation />
+        <h2>Välj ett djur!</h2>
+      </>
+    );
   } else {
-    let date = new Date(current.lastFed);
-    let showdate = date.toString();
+    let showdate = isAnimalHungry(current);
     return (
       <>
         <Navigation />
@@ -48,7 +51,7 @@ export const AnimalView = ({ animal }: Props) => {
             <p>Lite mer information: {current.longDescription}</p>
             <p>Har ätit: {current.isFed}</p>
             <p>Föddes: {current.yearOfBirth}</p>
-            <p>Åt senast: {showdate}</p>
+            <p>Åt senast: {showdate} timmar sedan</p>
             <button onClick={handleFeedAnimal}>Mata mig!</button>
           </div>
         </div>
