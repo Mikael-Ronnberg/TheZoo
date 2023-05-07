@@ -1,67 +1,77 @@
-import { useState } from "react";
 import { IAnimal } from "../pages/Animal/Animal";
+import axios from "axios";
 
-export let myAnimals: IAnimal[] = [];
+export const myAnimals: IAnimal[] = [];
 
-export async function logJSONData() {
-  if (myAnimals.length === 0) {
-    const response = await fetch(
+if (myAnimals.length === 0) {
+  try {
+    const response = await axios.get<IAnimal[]>(
       "https://animals.azurewebsites.net/api/animals"
     );
-    const jsonData = await response.json();
-
-    for (let i = 0; i < jsonData.length; i++) {
-      myAnimals.push(jsonData[i]);
-    }
+    response.data.forEach((animal) => {
+      myAnimals.push(animal);
+    });
+    console.log(myAnimals);
+  } catch (error) {
+    console.error(error);
   }
 }
+
+// const fetchAnimals = async () => {
+//   try {
+//     const response = await axios.get<IAnimal[]>(
+//       "https://animals.azurewebsites.net/api/animals"
+//     );
+//     myAnimals = response.data;
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };
 
 export interface Loader {
-  allTheAnimals: IAnimal[];
-  updateLastFed: (animalId: number, lastFed: Date) => void;
-  isAnimalHungry: (hungryAnimal: IAnimal) => string;
+  theAnimals: IAnimal[];
+  //   updateLastFed: (animalId: number, lastFed: Date) => void;
+  //   isAnimalHungry: (hungryAnimal: IAnimal) => string | undefined;
 }
+// const updateLastFed = (animalId: number, didFed: Date) => {
+//   const updatedAnimals = myAnimals.map((animal) => {
+//     let lastFed = didFed.toISOString();
+//     return { ...animal, lastFed, isFed: true };
+//   });
 
-const updateLastFed = (animalId: number, didFed: Date) => {
-  const updatedAnimals = myAnimals.map((animal) => {
-    if (animal.id === animalId) {
-      let lastFed = didFed.toISOString();
-      return { ...animal, lastFed, isFed: true };
-    }
-    return animal;
-  });
+//   myAnimals = updatedAnimals;
+// };
 
-  myAnimals = updatedAnimals;
-};
+// const isAnimalHungry = (hungryAnimal: IAnimal) => {
+//   if (myAnimals !== undefined) {
+//     const now = new Date();
+//     const sinceFed = new Date(hungryAnimal.lastFed);
+//     const hoursSinceLastFed = Math.floor(
+//       (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
+//     );
 
-const isAnimalHungry = (hungryAnimal: IAnimal) => {
-  // hungryAnimals.map((animal) => {
-  const now = new Date();
-  const sinceFed = new Date(hungryAnimal.lastFed);
-  const hoursSinceLastFed = Math.floor(
-    (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
-  );
-
-  if (hoursSinceLastFed >= 3) {
-    const updatedAnimals = myAnimals.map((animal) => {
-      if (animal.id === hungryAnimal.id) {
-        return { ...animal, isFed: false };
-      }
-    });
-  }
-  // });
-
-  console.log(myAnimals);
-  return hoursSinceLastFed.toString();
-};
+//     // if (hoursSinceLastFed >= 3) {
+//     //   if (myAnimals !== undefined) {
+//     //     const updatedAnimals = myAnimals.map((animal) => {
+//     //       if (animal.id === hungryAnimal.id) {
+//     //         return { ...animal, isFed: false };
+//     //       }
+//     //     });
+//     //   }
+//     // }
+//     return hoursSinceLastFed.toString();
+//   }
+// };
 
 export const animalLoader = () => {
   const data: Loader = {
-    allTheAnimals: myAnimals,
-    updateLastFed,
-    isAnimalHungry,
+    theAnimals: myAnimals,
+    // updateLastFed,
+    // isAnimalHungry,
   };
   return data;
-};
 
-logJSONData();
+  //   if (data) {
+  //     return data;
+  //   }
+};

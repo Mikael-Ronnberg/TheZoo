@@ -25,7 +25,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/animals/:id",
-    element: <AnimalView />,
+    element: <AnimalView></AnimalView>,
     loader: animalLoader,
   },
 ]);
@@ -35,24 +35,3 @@ root.render(
     <RouterProvider router={router} />
   </React.StrictMode>
 );
-
-// async function logJSONData() {
-//   const response = await fetch("https://animals.azurewebsites.net/api/animals");
-//   const jsonData = await response.json();
-//   console.log(jsonData);
-// }
-
-// logJSONData();
-
-// export interface IAnimal {
-//   id: number;
-//   imageUrl: string;
-//   isFed: boolean;
-//   lastFed: string;
-//   latinName: string;
-//   longDescription: string;
-//   medicine: string;
-//   name: string;
-//   shortDescription: string;
-//   yearOfBirth: number;
-// }

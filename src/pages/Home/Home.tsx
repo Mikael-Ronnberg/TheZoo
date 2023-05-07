@@ -1,5 +1,4 @@
 import { Navigation } from "../../components/Navigation/Navigation";
-import { logJSONData } from "../../loaders/animalLoader";
 import "./Home.css";
 
 export const Home = () => {
