@@ -12,12 +12,6 @@ export const Navigation = () => {
           <li>
             <Link to={"/animals"}>Animals</Link>
           </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
-          <li>
-            <Link to="/">Home</Link>
-          </li>
         </ul>
       </nav>
     </>
