@@ -17,8 +17,12 @@ export const AnimalView = () => {
     } else {
       localStorage.setItem("animals", JSON.stringify(theAnimals));
     }
-    checkIfFed(animals);
   }, []);
+
+  // useEffect(() => {
+  //   checkIfFed(animals);
+  // }, []);
+
   const params = useParams();
 
   const current = animals.find((animal) => animal.id.toString() === params.id);
@@ -33,7 +37,27 @@ export const AnimalView = () => {
     });
 
     setAnimals(updatedAnimals);
-    localStorage.setItem("animals", JSON.stringify(animals));
+    localStorage.setItem("animals", JSON.stringify(updatedAnimals));
+  };
+
+  const checkIfFed = (fullAnimals: IAnimal[]) => {
+    const now = new Date();
+
+    fullAnimals.forEach((ani) => {
+      const sinceFed = new Date(ani.lastFed);
+      const hoursSinceLastFed = Math.floor(
+        (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
+      );
+      if (hoursSinceLastFed >= 3) {
+        const updatedAnimals = animals.map((animal) => {
+          if (animal.id === ani.id) {
+            return { ...animal, isFed: false };
+          }
+          return animal;
+        });
+        setAnimals(updatedAnimals);
+      }
+    });
   };
 
   const checkHunger = (id: number) => {
@@ -48,43 +72,6 @@ export const AnimalView = () => {
       return hoursSinceLastFed.toString();
     }
   };
-
-  const checkIfFed = (fullAnimals: IAnimal[]) => {
-    const now = new Date();
-
-    fullAnimals.forEach((ani) => {
-      const sinceFed = new Date(ani.lastFed);
-      const hoursSinceLastFed = Math.floor(
-        (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
-      );
-      if (hoursSinceLastFed >= 3) {
-        animals.map((animal) => {
-          if (animal.id === ani.id) {
-            return { ...animal, isFed: false };
-          }
-          setAnimals([...animals, animal]);
-
-          console.log(animals);
-        });
-      }
-    });
-  };
-
-  // const isAnimalHungry = (hungryAnimal: IAnimal) => {
-  //     const now = new Date();
-  //     const sinceFed = new Date(hungryAnimal.lastFed);
-  //     const hoursSinceLastFed = Math.floor(
-  //       (now.getTime() - sinceFed.getTime()) / (1000 * 60 * 60)
-  //     );
-
-  //     if (hoursSinceLastFed >= 3) {
-  //         const updatedAnimals = animals.map((animal) => {
-  //           if (animal.id === hungryAnimal.id) {return { ...animal, isFed: false };}});
-  //       }
-  //     }
-  //     return hoursSinceLastFed.toString();
-  //   };
-  // }
 
   const handleFeedAnimal = (id: number) => {
     const now = new Date();
